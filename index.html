@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+
+    <!-- Meta-Information -->
+    <title>EventCORE</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Event Core Cru Inc.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+
+    <!-- Our Website CSS Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/formValidation.css">
+
+</head>
+
+<body ng-app="tutorialWebApp">
+    <!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+    <!-- Our Website Content Goes Here -->
+    <div ng-include='"templates/header.html"'></div>
+    <div class="loader"></div>
+    <div ng-view></div>
+    <div ng-include='"templates/footer.html"'></div>
+
+    <!-- Vendor: Javascripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $(".loader").fadeOut("slow");
+        })
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Vendor: Angular, followed by our custom Javascripts -->
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+    <!-- Our Website Javascripts -->
+    <script src="js/main.js"></script>
+    <script src="js/services/regType.js"></script>
+    <script src="js/models/checklist-model.js"></script>
+    <script src="js/controllers/HomeController.js"></script>
+    <script src="js/controllers/RegistrationController.js"></script>
+    <script src="js/controllers/CartController.js"></script>
+    <script src="js/controllers/PaymentController.js"></script>
+    <script src="js/controllers/ContactController.js"></script>
+    <script src="js/controllers/PageController.js"></script>
+
+</body>
+
+</html>

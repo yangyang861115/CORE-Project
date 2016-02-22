@@ -1,0 +1,123 @@
+/*data sample for registration controller*/
+
+
+//form header message data from API
+//********************************
+//1 siteKey = unique site ID.
+//2 siteTitle = Descriptive Title of Site
+//3 aID = atendee ID number
+//4 headTot = Total number of Header Fields
+//5 headGroups = a key/value pair JSON string with the header info
+
+
+form.message = {
+    'siteKey': 219,
+    'siteTitle': 'Empty Okay Hotel 2019',
+    'aID': 11,
+    'headTot': '3',
+    'headGroups': [
+        {
+            'gID': 1,
+            'gTitle': 'Register'
+        },
+        {
+            'gID': 2,
+            'gTitle': 'Personal Information'
+        },
+        {
+            'gID': 3,
+            'gTitle': 'Extra Info 1'
+        }
+                     ]
+};
+
+//form elements data from API
+//********************************
+//Each row will contain these fields
+//1 rowNum = a unique row number ID
+//2 group  = the heading group to which this row belongs
+//3 label = The standard label field
+//4 type = the type of input field
+//5 extra = extra parameters based on field type
+//6 reqd = if field is required
+//7 value = current value of this field
+
+form.formEles = [
+    {
+        'rowNum': 1,
+        'group': 1,
+        'label': 'First Name',
+        'type': 'text',
+        'extra': 'this is an extra message',
+        'reqd': true,
+        'name': 'fname',
+        'value': 'Vivian',
+        'lst': ''
+        },
+    {
+        'rowNum': 2,
+        'group': 1,
+        'label': 'Last Name',
+        'type': 'text',
+        'extra': '',
+        'reqd': false,
+        'name': 'lname',
+        'value': 'Yang',
+        'lst': ''
+        },
+    {
+        'rowNum': 3,
+        'group': 2,
+        'label': 'Email',
+        'type': 'email',
+        'extra': '',
+        'reqd': false,
+        'name': 'email',
+        'value': '',
+        'lst': ''
+        },
+    {
+        'rowNum': 4,
+        'group': 3,
+        'label': 'Registration Type',
+        'type': 'select',
+        'extra': '',
+        'reqd': false,
+        'name': 'regType',
+        'value': 'CR-218-std',
+        'lst': ['opt 1', 'opt 2', 'opt 3']
+        },
+    {
+        'rowNum': 5,
+        'group': 3,
+        'label': 'Message',
+        'type': 'textarea',
+        'extra': 'please tell me more about you',
+        'reqd': false,
+        'name': 'msg',
+        'value': 'this is a message for textarea',
+        'lst': ''
+        },
+    {
+        'rowNum': 6,
+        'group': 3,
+        'label': 'My Roles',
+        'type': 'checkbox',
+        'extra': '',
+        'reqd': false,
+        'name': 'role',
+        'value': '',
+        'lst': ['Teacher', 'Elementary', 'Secondary', 'Administrator/Director']
+        },
+    {
+        'rowNum': 7,
+        'group': 4,
+        'label': 'Gender',
+        'type': 'radio',
+        'extra': '',
+        'reqd': false,
+        'name': 'role',
+        'value': '',
+        'lst': ['Male', 'Female']
+        }
+    ];

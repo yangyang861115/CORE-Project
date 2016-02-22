@@ -1,0 +1,78 @@
+[{
+    "rowNum": 1,
+    "group": 1,
+    "label": "First Name",
+    "type": "text",
+    "extra": "this is an extra message",
+    "reqd": true,
+    "name": "fname",
+    "value": "Jonathan",
+    "0": "lst"
+}, {
+    "rowNum": 2,
+    "group": 1,
+    "label": "Last Name",
+    "type": "text",
+    "extra": "",
+    "reqd": false,
+    "name": "lname",
+    "value": "Smith'",
+    "lst": ""
+}, {
+    "rowNum": 3,
+    "group": 2,
+    "label": "Email",
+    "type": "email",
+    "extra": "",
+    "reqd": true,
+    "name": "email",
+    "value": "",
+    "lst": ""
+}, {
+    "rowNum": 4,
+    "group": 3,
+    "label": "Registration Type",
+    "type": "select",
+    "extra": "",
+    "reqd": false,
+    "name": "regType",
+    "value": "CR-218-gst",
+    "lst": {
+        "CR-218-std": "Standard Registration ($100)",
+        "CR-218-stu": "Student Registration ($50)",
+        "CR-218-gst": "Guest Observer ($25)"
+    }
+}, {
+    "rowNum": 5,
+    "group": 3,
+    "label": "Message",
+    "type": "textarea",
+    "extra": "please tell me more about you",
+    "reqd": false,
+    "name": "msg",
+    "value": "this is a message for textarea",
+    "lst": ""
+}, {
+    "rowNum": 6,
+    "group": 3,
+    "label": "My Roles",
+    "type": "checkbox",
+    "extra": "",
+    "reqd": false,
+    "name": "role",
+    "value": "",
+    "lst": ["Teacher", "Elementary", "Secondary", "Administrator\/Director"]
+}, {
+    "rowNum": 7,
+    "group": 3,
+    "label": "Gender",
+    "type": "radio",
+    "extra": "",
+    "reqd": false,
+    "name": "role",
+    "value": "",
+    "lst": {
+        "f": "Female",
+        "m": "Male"
+    }
+}]

@@ -1,0 +1,17 @@
+.regiForm input.ng-touched.ng-invalid {
+    border: 5px solid red;
+}
+.regiForm input.ng-touched.ng-valid {
+    border: 5px solid green;
+}
+
+.regiForm textarea.ng-touched.ng-invalid {
+    border: 5px solid red;
+}
+.regiForm textarea.ng-touched.ng-valid {
+    border: 5px solid green;
+}
+
+span.error {
+    color: red;
+}

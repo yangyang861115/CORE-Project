@@ -1,0 +1,167 @@
+<div class="container" ng-controller="RegiCtrl as regi" ng-cloak>
+    <!--loading icon-->
+    <div class="loader" ng-hide="dataLoaded"></div>
+    <!--form body-->
+    <div ng-show="dataLoaded">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2" ng-cloak>
+                <form class="form-horizontal regiForm" name="regiForm" ng-submit="submit(regiForm)" novalidate>
+                    <!--form header-->
+                    <div class="form-group">
+                        <h1 class="page-header">{{message.siteKey}} : {{message.siteTitle}}</h1>
+                        <p>Welcome user: {{message.aID}}, Please fill out the following {{message.headTot}} sections!</p>
+                        <p style="color:red">You have chose the {{regType}} event!</p>
+                    </div>
+                    <!--end of form header-->
+                    <!--form lines-->
+                    <div ng-repeat="group in message.headGroups" ng-cloak>
+
+                        <h2>{{group.gID}} : {{group.gTitle}}</h2>
+
+
+                        <div class="form-group" ng-repeat="line in formEles" ng-if="line.group == group.gID">
+
+
+                            <label for={{line.rowNum}} class="col-sm-2 control-label">{{line.label}}</label>
+                            <!--text box(text, password, file)-->
+                            <div class="col-sm-10" ng-if="line.type == 'text' || line.type == 'password' || line.type == 'file'">
+                                <input type={{line.type}} name={{line.name}} class="form-control" id={{line.rowNum}} ng-required={{line.reqd}} ng-model="formData[line.name]" ng-init="formData[line.name]=line.value" maxlength="{{line.max}}">
+                                <p class="help-block">{{line.extra}}</p>
+                                <p class="help-block" ng-show="line.max">maximum length is {{line.max}}</p>
+                                <span ng-show="regiForm[line.name].$dirty" class="error">
+                                  <span ng-show="regiForm[line.name].$error.required">{{line.label}} is required.</span>
+                                </span>
+                            </div>
+
+                            <!--text box(email)-->
+                            <div class="col-sm-10" ng-if="line.type == 'email'">
+                                <input type={{line.type}} name={{line.name}} class="form-control" id={{line.rowNum}} ng-required={{line.reqd}} ng-model="formData[line.name]" ng-init="formData[line.name]=line.value" ng-pattern="EMAIL_REGEXP">
+                                <p class="help-block">{{line.extra}}</p>
+                                <span class="error" ng-show="regiForm[line.name].$dirty">
+                                  <span ng-show="regiForm[line.name].$error.required">{{line.label}} is required.</span>
+                                <span ng-show="regiForm[line.name].$error.pattern">Invalid email address.</span>
+                                </span>
+                            </div>
+
+                            <!--select box-->
+                            <div class="col-sm-10" ng-if="line.type == 'select'">
+                                <select name="{{line.name}}" ng-model="formData[line.name]" ng-init="formData[line.name]=line.value" id="{{line.rowNum}}" class="form-control" ng-required={{line.reqd}}>
+                                    <option ng-repeat="(val, opt) in line.lst" value="{{val}}">{{opt}}</option>
+                                </select>
+                                <p class="help-block">{{line.extra}}</p>
+                                <span class="error" ng-show="regiForm[line.name].$dirty">
+  <span ng-show="regiForm[line.name].$error.required">{{line.label}} is required.</span>
+                                </span>
+                            </div>
+
+                            <!--textarea-->
+                            <div class="col-sm-10" ng-if="line.type == 'textarea'">
+                                <textarea name="{{line.name}}" ng-model="formData[line.name]" ng-init="formData[line.name]=line.value" id="{{line.rowNum}}" class="form-control" rows=5 ng-required={{line.reqd}}></textarea>
+                                <p class="help-block">{{line.extra}}</p>
+                                <span class="error" ng-show="regiForm[line.name].$dirty">
+  <span ng-show="regiForm[line.name].$error.required">{{line.label}} is required.</span>
+                                </span>
+                            </div>
+
+                            <!--checkbox-->
+                            <div class="col-sm-10" ng-if="line.type == 'checkbox'" ng-init="creatArray(line.name, line.value)">
+                                <div class="checkbox" ng-repeat="(key, opt) in line.lst">
+                                    <label>
+                                        <input checklist-model="formData[line.name]" checklist-value="key" type="checkbox" ng-required="line.reqd && formData[line.name].length==0"> {{opt}}
+                                    </label>
+                                </div>
+                                <p class="help-block">{{line.extra}}</p>
+                                <span class="error">
+  <span ng-show="line.reqd && formData[line.name].length==0">Please choose one or more "{{line.label}}" above.</span>
+                                </span>
+                            </div>
+
+
+                            <!--radio-->
+                            <div class="col-sm-10" ng-if="line.type == 'radio'">
+                                <div class="radio" ng-repeat="(val, opt) in line.lst" ng-init="formData[line.name]=line.value">
+                                    <label>
+                                        <input name={{line.name}} ng-model="formData[line.name]" type="radio" value="{{val}}" ng-required={{line.reqd}}> {{opt}}
+                                    </label>
+                                </div>
+                                <p class="help-block">{{line.extra}}</p>
+                                <span class="error" ng-show="regiForm[line.name].$dirty">
+  <span ng-show="regiForm[line.name].$error.required">{{line.label}} is required.</span>
+                                </span>
+                            </div>
+
+                            <!--msg-->
+                            <div style="color:blue" class="col-sm-10" ng-if="line.type == 'msg'">
+                                <div>
+                                    <p ng-bind-html="renderHtml(line.value)"></p>
+                                </div>
+                            </div>
+
+                            <!--sub heading-->
+                            <div class="col-sm-10 col-sm-pull-2" ng-if="line.type == 'hdg'">
+                                <div>
+                                    <h3>{{line.value}}</h3>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!--end of form lines-->
+
+                    <!--<div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" id="submit" class="btn btn-default" value="CHECKOUT" ng-disabled="submitButtonDisabled">
+                    </div>
+                </div>-->
+
+
+
+                    <!--toggle button-->
+                    <div>
+                        <!-- Button trigger  -->
+                        <div class="col-sm-offset-6 col-sm-6">
+                            <input type="submit" id="submit" class="btn btn-info" value="CHECKOUT" ng-disabled="regiForm.$invalid" data-toggle="modal" data-target="#myModal">
+                            <input type="button" class="btn btn-warning" value="CANCEL/RESET" ng-click="reset()">
+                        </div>
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Message</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--error msg-->
+                                        <div>
+                                            <p ng-class="result" style="padding: 15px; margin: 0;">{{ resultMessage }}</p>
+                                        </div>
+                                        <pre>{{formData | json}}</pre>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close/Add another person</button>
+                                        <button ng-disabled="regiForm.$invalid" class="btn btn-primary" ng-click="go('/cart')">Continue to pay</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!--end of form data-->
+
+
+            </div>
+        </div>
+    </div>
+</div>
