@@ -1,12 +1,5 @@
 <div class="container" ng-controller="HomeCtrl">
-    <h1>this is home.html</h1>
-    <p>Use these links to test the Controller Calls:</p>
-    <ul>
-        <li><b>att_info</b>: <a href="https://crucore.com/api.php?a=att_info">Info List</a></li>
-        <li><b>att_reg</b>: <a href="https://crucore.com/api.php?a=att_reg">Registration List</a></li>
-    </ul>
-
-    <h1> Start a new (or return to existing) registration: </h1>
+    <h1> Start a New Registration </h1>
     <!--only one group, display the type-->
     <div ng-if="strt.length == 1">
        <h3>{{strt[0].g_class}}</h3>
@@ -43,5 +36,37 @@
             </div>
         </div>
     </div>
-    <pre>{{strt | json}}</pre>
+
+
+    <!--list of events for a user-->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, val) in list[0]">{{key | uppercase}}</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in list">
+                    <td ng-repeat="(key, val) in event">{{val}}</td>
+                    <td>
+                        <button class="btn btn-warning">
+                            <i class="fa fa-pencil fa-lg"></i> edit
+                        </button>
+
+                        <button class="btn btn-danger">
+                            <i class="fa fa-times fa-lg"></i> cancel
+                        </button>
+
+                        <button class="btn btn-info">
+                            <i class="fa fa-eye fa-lg"></i> view
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <pre>{{list | json}}</pre>
 </div>
