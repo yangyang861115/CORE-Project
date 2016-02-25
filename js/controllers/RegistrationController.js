@@ -6,12 +6,12 @@
         .module('tutorialWebApp')
         .controller('RegiCtrl', RegiCtrl);
 
-    function RegiCtrl($scope, $location, $http, $sce, myService) {
+    function RegiCtrl($scope, $location, $http, $sce, UserService) {
         console.log("Registration Controller reporting for duty.");
         var form = $scope;
 
         $scope.dataLoaded = false;
-        form.regType = myService.type;
+        form.regType = UserService.newEventType;
 
         form.result = 'hidden';
         form.resultMessage;

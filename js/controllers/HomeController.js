@@ -6,7 +6,7 @@
         .module('tutorialWebApp')
         .controller('HomeCtrl', HomeCtrl);
 
-    function HomeCtrl($scope, $location, $http, myService) {
+    function HomeCtrl($scope, $location, $http, UserService) {
         console.log("Home Controller reporting for duty.");
 
 
@@ -24,7 +24,7 @@
         };
 
         $scope.register = function (key) {
-            myService.type = key;
+            UserService.newEventType = key;
             console.log(key, " is selected!");
             $location.path('/registration');
         }
