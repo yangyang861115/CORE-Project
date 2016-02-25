@@ -1,6 +1,13 @@
 /**
  * Controls the Payment
  */
-angular.module('tutorialWebApp').controller('PayCtrl', function ( /* $scope, $location, $http */ ) {
-    console.log("Payment Controller reporting for duty.");
-});
+(function () {
+    angular
+        .module('tutorialWebApp')
+        .controller('PayCtrl', PayCtrl);
+
+    function PayCtrl(/* $scope, $location, $http */) {
+        console.log("Payment Controller reporting for duty.");
+    }
+
+})();

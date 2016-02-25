@@ -1,12 +1,12 @@
 /**
  * Controls the Home
  */
-(function(){
+(function () {
     angular
         .module('tutorialWebApp')
-        .controller('HomeCtrl',HomeCtrl) ;
+        .controller('HomeCtrl', HomeCtrl);
 
-    function HomeCtrl ($scope, $location, $http, myService) {
+    function HomeCtrl($scope, $location, $http, myService) {
         console.log("Home Controller reporting for duty.");
 
 
@@ -18,12 +18,12 @@
             $scope.strt = data;
         });
 
-        $scope.choose = function(item) {
+        $scope.choose = function (item) {
             $scope.click = item.g_class;
             $scope.chosen = item;
         };
 
-        $scope.register = function(key) {
+        $scope.register = function (key) {
             myService.type = key;
             console.log(key, " is selected!");
             $location.path('/registration');
