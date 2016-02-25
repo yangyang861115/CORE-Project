@@ -4,7 +4,6 @@
 /**
  * Configure the Routes
  */
-
 (function () {
     angular
         .module('tutorialWebApp')
