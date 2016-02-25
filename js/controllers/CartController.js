@@ -20,26 +20,33 @@ angular.module('tutorialWebApp').controller('CartCtrl', function (  $scope, $loc
         }*/
     });
     	
-		$scope.value = function () {
+/*		$scope.value = function () {
 		$scope.value='full';
 		$scope.$watch('value', function(value) {
 		   console.log(value);
+		   $scope.removeRow(1);
 		});
-	};
+	};*/
                 
     $scope.removeRow = function (id) {
   		cart.datarows.splice(id, 1);
 	};      
-	$scope.getTotal = function(){
+	$scope.getTotalFull = function(){
 		var total = 0;
 		for(var i = 0; i < cart.datarows.length; i++){
 		    total = total + cart.datarows[i].balAmt;
 		}
     	return parseInt(total);
-    	//console.log(total);
-    	//window.alert(total);
+	};
+
+	$scope.getTotalDown = function(){
+		var total = 0;
+		for(var i = 0; i < cart.datarows.length; i++){
+		    total = total + cart.datarows[i].downAmt - cart.datarows[i].paidAmt;
+		}
+    	return parseInt(total);
 	}
-	
+		
 	$scope.getTotalNumAtnd = function(){
 		return cart.datarows.length;
 	}

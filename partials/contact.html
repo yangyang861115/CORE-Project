@@ -29,6 +29,26 @@
                                 <input ng-model="formData.inputSubject" type="text" class="form-control" id="inputSubject" name="inputSubject" placeholder="Subject Message" required>
                             </div>
                         </div>
+                        <div class="form-group" ng-class="{ 'has-error': contactform.inputColor.$invalid && submitted }">
+   	                        <label for="inputColor" class="col-lg-2 control-label">Background Color</label>
+       	                    <div class="col-lg-10">
+           	                    <select ng-model="formData.inputColor" class="form-control" id="inputColor" name="inputColor" placeholder="Select Background Color" required>
+								  <option value="gold">Gold</option>
+							      <option value="green">Green</option>
+							      <option value="blue">Blue</option>
+								</select>
+	                   	    </div>
+						</div>                        
+                        <div class="form-group" ng-class="{ 'has-error': contactform.inputPhoto.$invalid && submitted }">
+   	                        <label for="inputPhoto" class="col-lg-2 control-label">Primary Photo</label>
+       	                    <div class="col-lg-10">
+           	                    <select ng-model="formData.inputPhoto" class="form-control" id="inputPhoto" name="inputPhoto" placeholder="Select Primary Photo" required>
+								  <option value="dream">Dream On</option>
+							      <option value="glad">Gladiator</option>
+							      <option value="dog">Best Dog</option>
+								</select>
+               	            </div>
+                   	    </div>
                         <div class="form-group" ng-class="{ 'has-error': contactform.inputMessage.$invalid && submitted }">
                             <label for="inputMessage" class="col-lg-2 control-label">Message</label>
                             <div class="col-lg-10">
@@ -38,7 +58,7 @@
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button type="submit" class="btn btn-default" ng-disabled="submitButtonDisabled">
-                                    Send Message
+                                    Send Message to User
                                 </button>
                             </div>
                         </div>

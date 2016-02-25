@@ -13,7 +13,6 @@
                    <div class="col-sm-4"><button type="button" class="btn btn-primary"> Cancel </button></div>   
                 </div>
 
-
                 <div class="row">
                     <div ng-repeat="row in crtct.datarows">
                         <div class="col-sm-8">
@@ -21,13 +20,14 @@
                             <p>{{row.prodNumb}}</p>
                             <p>Paid: {{row.paidAmt}} of {{row.owedAmt}}</p>
                         </div>
-
-
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-default btn-sm" ng-click="removeRow(row)">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index)">
                                 <!-- <span class="glyphicon glyphicon-remove"></span> -->Remove
                             </button>
-                            <p>Balance is {{row.balAmt}}</p>
+                            <div ng-switch="balamt">
+		                        <p ng-switch-default>Balance is {{row.balAmt}}</p>
+		                        <p ng-switch-when="down">Balance is {{row.downAmt - row.paidAmt}}</p>                            
+                            </div>
                         </div>
                         <hr>
                     </div>
@@ -35,30 +35,31 @@
 
                 <div class="row">
                     <label for="full">
-                        <input type="radio" ng-model="value" id="full" name="fuordo" value="ford" checked="checked"> Full
+                        <input type="radio" ng-model="balamt" name="fuordo" value="full" ng-checked="true"> Full
                     </label>
-
                     <label for="down">
-                        <input type="radio" ng-model="value" id="down" name="fuordo" value="down"> Down
+                        <input type="radio" ng-model="balamt" name="fuordo" value="down"> Down
                     </label>
-                    <p> Total {{ getTotal() }} </p>
+                    <div ng-switch="balamt">
+                    <p ng-switch-default> Total {{ getTotalFull() }} </p>
+                    <p ng-switch-when="down"> Total {{ getTotalDown() }} </p>
+                    </div>
                 </div>
                 
-                <div class="row">
-                    
-                        <button type="button" class="btn btn-primary" ng-click="go('/registration')"> More Attendees </button>
-                    
-                    
-                        <button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button>
-                    
+                <div class="row">                    
+                        <button type="button" class="btn btn-primary" ng-click="go('/registration')"> More Attendees </button>                    
+                        <button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button>                    
                 </div>
             </form>
         </div>
         <div class="col-md-4">
             <div class="row">
-                <p> Your cart total
-                    <br/> {{ getTotal() }} </p>
-                <p> {{ value }} </p>
+                <div ng-switch="balamt">
+                	<p> Your Cart Total</p>
+                    <p ng-switch-default>  {{ getTotalFull() }} </p>
+                    <p ng-switch-when="down">  {{ getTotalDown() }} </p>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button>
             </div>
             <div class="row">
                 <p> <b> Questions? </b> </p>
