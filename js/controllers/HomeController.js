@@ -1,30 +1,38 @@
 /**
  * Controls the Home
  */
-angular.module('tutorialWebApp').controller('HomeCtrl', function ($scope, $location, $http, myService) {
-    console.log("Home Controller reporting for duty.");
-    $scope.strt = {};
+(function(){
+    angular
+        .module('tutorialWebApp')
+        .controller('HomeCtrl',HomeCtrl) ;
 
-    $scope.list = [];
+    function HomeCtrl ($scope, $location, $http, myService) {
+        console.log("Home Controller reporting for duty.");
 
-    $http.get('https://crucore.com/api.php?a=strt_type').success(function (data) {
-        $scope.strt = data;
-    });
-    
-    $scope.choose = function(item) {
-        $scope.click = item.g_class;
-        $scope.chosen = item;
-    };
-    
-    $scope.register = function(key) {
-        myService.type = key;
-        console.log(key, " is selected!");
-        $location.path('/registration');
+
+        $scope.strt = {};
+
+        $scope.list = [];
+
+        $http.get('https://crucore.com/api.php?a=strt_type').success(function (data) {
+            $scope.strt = data;
+        });
+
+        $scope.choose = function(item) {
+            $scope.click = item.g_class;
+            $scope.chosen = item;
+        };
+
+        $scope.register = function(key) {
+            myService.type = key;
+            console.log(key, " is selected!");
+            $location.path('/registration');
+        }
+
+        $http.get('https://crucore.com/api.php?a=strt_list').success(function (data) {
+            $scope.list = data;
+        });
+
     }
 
-    $http.get('https://crucore.com/api.php?a=strt_list').success(function (data) {
-        $scope.list = data;
-    });
-
-
-});
+})();
