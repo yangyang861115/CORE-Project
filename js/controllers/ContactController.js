@@ -48,7 +48,7 @@
             }
             else {
                 $scope.submitButtonDisabled = false;
-                $scope.resultMessage = 'Failed <img src="http://www.chaosm.net/blog/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley">  Please fill out all the fields.';
+                $scope.resultMessage = 'Failed.Please fill out all the fields.';
                 $scope.result = 'bg-danger';
             }
         }
