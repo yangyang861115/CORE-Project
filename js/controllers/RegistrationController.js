@@ -31,7 +31,7 @@
             $('myModal').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
-            $location.path('/registration');
+            $location.url(path);
         }
 
         //form header message data from API

@@ -12,7 +12,10 @@
 
         $scope.strt = {};
 
+        $scope.info = null;
         $scope.list = [];
+
+
 
         $http.get('https://crucore.com/api.php?a=strt_type').success(function (data) {
             $scope.strt = data;
@@ -32,6 +35,12 @@
         $http.get('https://crucore.com/api.php?a=strt_list').success(function (data) {
             $scope.list = data;
         });
+
+        $http
+            .get(' https://crucore.com/api.php?a=strt_info')
+            .success(function(data){
+                $scope.info = data;
+            });
 
     }
 

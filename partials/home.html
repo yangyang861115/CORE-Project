@@ -37,6 +37,11 @@
         </div>
     </div>
 
+    <div ng-show="info.success">
+        <h1>{{info.siteTitle}}</h1>
+        <h3>{{info.dates}}</h3>
+        <h3>{{info.location}}</h3>
+    </div>
 
     <!--list of events for a user-->
     <div class="table-responsive">
@@ -68,5 +73,5 @@
         </table>
     </div>
 
-    <pre>{{list | json}}</pre>
+    <!--<pre>{{info | json}}</pre>-->
 </div>
