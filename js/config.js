@@ -17,7 +17,8 @@
             })
             // Registration
             .when("/registration", {
-                templateUrl: "partials/registration.html"
+                templateUrl: "partials/registration.html",
+                controller: "RegiCtrl"
             })
             // Cart
             .when("/cart", {
@@ -25,7 +26,8 @@
             })
             // Contact
             .when("/contact", {
-                templateUrl: "partials/contact.html"
+                templateUrl: "partials/contact.html",
+                controller: "ContactCtrl"
             })
             // else 404
             .when("/404", {
