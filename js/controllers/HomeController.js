@@ -32,8 +32,10 @@
             $location.path('/registration');
         }
 
-        $http.get('https://crucore.com/api.php?a=strt_list').success(function (data) {
-            $scope.list = data;
+        $http
+            .get('https://crucore.com/api.php?a=strt_list')
+            .success(function (data) {
+                $scope.list = data;
         });
 
         $http

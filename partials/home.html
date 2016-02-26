@@ -1,41 +1,5 @@
 <div class="container" ng-controller="HomeCtrl">
-    <h1> Start a New Registration </h1>
-    <!--only one group, display the type-->
-    <div ng-if="strt.length == 1">
-       <h3>{{strt[0].g_class}}</h3>
-        <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="(key, type) in strt[0].lst">
-                <div class="thumbnail">
-                    <div class="btn btn-success btn-lg btn-block" ng-click="register(key)">
-                        <h4>{{type}}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!--more than one group-->
-    <div ng-if="strt.length > 1">
-        <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="class in strt">
-                <div class="thumbnail">
-                    <div class="btn btn-info btn-lg btn-block" ng-click="choose(class)" ng-class="{true: 'btn-primary', false: 'btn-warning'}[!(click==class.g_class)]">
-                        <h3>{{class.g_class}}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="(key, type) in chosen.lst">
-                <div class="thumbnail">
-                    <div class="btn btn-success btn-lg btn-block" ng-click="register(key)">
-                        <h4>{{type}}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div ng-show="info.success">
         <h1>{{info.siteTitle}}</h1>
@@ -44,7 +8,7 @@
     </div>
 
     <!--list of events for a user-->
-    <div class="table-responsive">
+    <div class="table-responsive" ng-show="list.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -71,6 +35,48 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div ng-show="list.length == 0">
+        <h3>Return to Existing Registration</h3>
+    </div>
+
+    <h1> Start a New Registration </h1>
+    <!--only one group, display the type-->
+    <div ng-if="strt.length == 1">
+        <h3>{{strt[0].g_class}}</h3>
+        <div class="row">
+            <div class="col-sm-6 col-md-4" ng-repeat="(key, type) in strt[0].lst">
+                <div class="thumbnail">
+                    <div class="btn btn-success btn-lg btn-block" ng-click="register(key)">
+                        <h4>{{type}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--more than one group-->
+    <div ng-if="strt.length > 1">
+        <div class="row">
+            <div class="col-sm-6 col-md-4" ng-repeat="class in strt">
+                <div class="thumbnail">
+                    <div class="btn btn-info btn-lg btn-block" ng-click="choose(class)" ng-class="{true: 'btn-primary', false: 'btn-warning'}[!(click==class.g_class)]">
+                        <h3>{{class.g_class}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6 col-md-4" ng-repeat="(key, type) in chosen.lst">
+                <div class="thumbnail">
+                    <div class="btn btn-success btn-lg btn-block" ng-click="register(key)">
+                        <h4>{{type}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--<pre>{{info | json}}</pre>-->
