@@ -23,7 +23,7 @@
 
                 $http({
                     method: 'POST',
-                    url: 'https://crucore.com/api.php?a=contact',
+                    url: 'http://doingthingsbetter.org/api.php?a=contact',
 //                headers: {
 //                    'Content-Type': 'application/x-www-form-urlencoded'
 //                },

@@ -11,21 +11,21 @@
         var form = $scope;
 
         $scope.dataLoaded = false;
-        form.regType = UserService.newEventType;
-
         form.result = 'hidden';
+        form.submitted = false;
+
+        form.regType = UserService.newEventType;
         form.resultMessage;
         form.message = {}; //header message
         form.formEles = []; // rows in the form
         form.formData = {}; // submit form data
-        form.submitted = false;
 
         form.EMAIL_REGEXP = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
         //form.EMAIL_REGEXP = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
 
         form.renderHtml = function (html_code) {
             return $sce.trustAsHtml(html_code);
-        };
+        }
 
         form.go = function (path) {
             $('myModal').modal('hide');
@@ -42,8 +42,10 @@
         //4 headTot = Total number of Header Fields
         //5 headGroups = a key/value pair JSON string with the header info
 
-        $http.get('https://crucore.com/api.php?a=att_info').success(function (data) {
-            form.message = data;
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=att_info')
+            .success(function (data) {
+                form.message = data;
         });
 
         //form elements data from API
@@ -57,9 +59,11 @@
         //6 reqd = if field is required
         //7 value = current value of this field
 
-        $http.get('https://crucore.com/api.php?a=att_reg').success(function (data) {
-            form.formEles = data;
-            $scope.dataLoaded = true;
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=att_reg')
+            .success(function (data) {
+                form.formEles = data;
+                $scope.dataLoaded = true;
         });
 
         //create an array for select box
@@ -81,7 +85,7 @@
                 console.log(form.formData);
                 $http({
                     method: 'POST',
-                    url: 'https://crucore.com/api.php?a=att_save',
+                    url: 'http://doingthingsbetter.org/api.php?a=att_save',
                     //                headers: {
                     //                    'Content-Type': 'application/x-www-form-urlencoded'
                     //                },

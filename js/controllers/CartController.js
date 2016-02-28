@@ -8,29 +8,34 @@ angular.module('tutorialWebApp').controller('CartCtrl', function (  $scope, $loc
 	cart.datarows = [];
 
 	
-	$http.get('https://crucore.com/api.php?a=cart_info&i=doingthingsbetter.org').success(function (data) {
+	$http.get('http://doingthingsbetter.org/api.php?a=cart_info').success(function (data) {
         cart.message = data;
     });
     
- 	//isVisibleCartInfo = true;
-	$http.get('https://crucore.com/api.php?a=cart_att&i=doingthingsbetter.org').success(function (data) {
+	$http.get('http://doingthingsbetter.org/api.php?a=cart_att').success(function (data) {
         cart.datarows = data;
-        /*if (datarows[0].success == 'false') {
-        	isVisibleCartInfo = false;
-        }*/
     });
-    	
-/*		$scope.value = function () {
-		$scope.value='full';
-		$scope.$watch('value', function(value) {
-		   console.log(value);
-		   $scope.removeRow(1);
-		});
-	};*/
+       
+	$http.get('http://doingthingsbetter.org/api.php?a=cart_uniq').success(function (data) {
+        cart.uniqItems = data;
+    });       
+
+	$http.get('http://doingthingsbetter.org/api.php?a=cart_gen').success(function (data) {
+        cart.genItems = data;
+    });
                 
-    $scope.removeRow = function (id) {
+    $scope.removeRowAttn = function (id) {
   		cart.datarows.splice(id, 1);
-	};      
+	};
+	
+    $scope.removeRowUniq = function (id) {
+  		cart.uniqItems.splice(id, 1);
+	};
+	
+    $scope.removeRowGen = function (id) {
+  		cart.genItems.splice(id, 1);
+	};
+	  
 	$scope.getTotalFull = function(){
 		var total = 0;
 		for(var i = 0; i < cart.datarows.length; i++){
@@ -46,7 +51,53 @@ angular.module('tutorialWebApp').controller('CartCtrl', function (  $scope, $loc
 		}
     	return parseInt(total);
 	}
-		
+
+	$scope.getTotalUniq = function(){
+		var totalUniq = 0;
+		for(var i = 0; i < cart.uniqItems.length; i++){
+		    totalUniq = totalUniq + cart.uniqItems[i].balAmt;
+		}
+    	return parseInt(totalUniq);
+	};
+	
+	$scope.getTotalGen = function(){
+		var totalGen = 0;
+		for(var i = 0; i < cart.genItems.length; i++){
+		    totalGen = totalGen + cart.genItems[i].balAmt;
+		}
+    	return parseInt(totalGen);
+	};
+	
+/*	$scope.getTotal = function(){
+		var total = 0;
+		total = $scope.getTotalUniq() + $scope.getTotalGen();
+		//var fullordown = document.querySelectorAll('input[type="radio"][name="furodo"]:checked');
+		if ($scope.balamt == "full" || $scope.balamt == "true")//if (fullordown[0].value == 'full')
+		{
+			total = total + $scope.getTotalFull();
+		}
+		else
+		{
+			total = total + $scope.getTotalDown();
+		}
+		return parseInt(total);
+	}; */
+	
+	$scope.getTotal = function(){
+		var total = 0;
+		total = $scope.getTotalUniq() + $scope.getTotalGen();
+		//var fullordown = document.querySelectorAll('input[type="radio"][name="furodo"]:checked');
+		if ($scope.balamt == "down")//if (fullordown[0].value == 'full')
+		{
+			total = total + $scope.getTotalDown();
+		}
+		else
+		{
+			total = total + $scope.getTotalFull();
+		}
+		return parseInt(total);
+	};
+
 	$scope.getTotalNumAtnd = function(){
 		return cart.datarows.length;
 	}

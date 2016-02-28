@@ -17,7 +17,7 @@
 
 
 
-        $http.get('https://crucore.com/api.php?a=strt_type').success(function (data) {
+        $http.get('http://doingthingsbetter.org/api.php?a=strt_type').success(function (data) {
             $scope.strt = data;
         });
 
@@ -33,13 +33,13 @@
         }
 
         $http
-            .get('https://crucore.com/api.php?a=strt_list')
+            .get('http://doingthingsbetter.org/api.php?a=strt_list')
             .success(function (data) {
                 $scope.list = data;
         });
 
         $http
-            .get(' https://crucore.com/api.php?a=strt_info')
+            .get('http://doingthingsbetter.org/api.php?a=strt_info')
             .success(function(data){
                 $scope.info = data;
             });
