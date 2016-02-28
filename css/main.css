@@ -167,3 +167,21 @@ footer {
 .nowarp {
     white-space: nowrap;
 }
+/* shopping cart*/
+.itemPanel {
+    background-color: rgba(240, 240, 240, 0.76);
+    padding: 2em;
+    margin: 0.6em
+}
+
+.item {
+    border: 1px solid gray;
+    background-color: rgba(206, 206, 206, 0.76);
+    margin: 5px; padding: 10px;
+}
+.line {
+    height:4px;
+    border:none;
+    color:#333;
+    background-color:#333;
+}

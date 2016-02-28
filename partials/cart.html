@@ -1,140 +1,118 @@
-<div class="container" ng-controller="CartCtrl as crtct" ng-cloak>
-    <div class="row">
-        <h1>Cart</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <p> Order Number: {{crtct.message.ordNumb}}</p>
-            <form ng-cloak>
-			<h3><u>Attendees</u></h3>
-                <div class="row">
-                   <div class="col-sm-4"><button type="button" class="btn btn-primary" ng-click="go('/home')"> More Attendees </button></div>
-                   <div class="col-sm-4">You have {{ getTotalNumAtnd() }} attendees </div>
-                   <div class="col-sm-4"><button type="button" class="btn btn-primary"> Cancel </button></div>   
+<div class="container">
+    <h1>Cart</h1>
+    <div class="col-md-8 main">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur commodi dolor doloremque eos error illo
+            inventore ipsa, labore laudantium neque nesciunt quaerat quam quos repudiandae similique? Delectus
+            doloremque laboriosam magnam.</p>
+        <h3>Order Number: #{{message.ordNumb}}</h3>
+        <div id="attendees" class="itemPanel">
+            <h2>Attendees</h2>
+            <div class="row">
+                <div class="pull-right">
+                    <p>You have {{datarows.length}} attendees <button class="btn btn-success" ng-click="$location.url('/registration')"> Add More Attendees </button></p>
+                    <label for="full">
+                        <input type="radio" ng-model="balamt" name="fuordo" id="full" value="full" ng-checked="true">
+                        Full
+                    </label>
+                    <label for="down">
+                        <input type="radio" ng-model="balamt" name="fuordo" id="down" value="down"> Down
+                    </label>
                 </div>
-				<br>
-                <div class="row">
-                    <div ng-repeat="row in crtct.datarows">
-                        <div class="col-sm-8">
-                            <p>{{row.prodDesc}}</p>
-                            <p>{{row.prodNumb}}</p>
-                            <p>Paid: {{row.paidAmt}} of {{row.owedAmt}}</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-default btn-sm" ng-click="removeRowAttn($index)">
-                                <!-- <span class="glyphicon glyphicon-remove"></span> -->Remove
-                            </button>
-                            <div ng-switch="balamt">
-		                        <p ng-switch-default>Balance is {{row.balAmt}}</p>
-		                        <p ng-switch-when="down">Balance is {{row.downAmt - row.paidAmt}}</p>                            
-                            </div>
-                        </div>
-                        <hr class="col-sm-10">
-                    </div>
-                </div>
+            </div>
 
-                <div class="row">
-                	<div class="col-sm-6">
-		                <label for="full">
-		                    <input type="radio" data-ng-model="balamt" name="fuordo" value="full" ng-checked="true"> Full
-		                </label>
-		                <label for="down">
-		                    <input type="radio" data-ng-model="balamt" name="fuordo" value="down"> Down
-		                </label>
-                    </div>
-                    <div ng-switch="balamt" class="col-sm-6">
-                    <p ng-switch-default> Total (Attendees Registration): {{ getTotalFull() }} </p>
-                    <p ng-switch-when="down"> Total (Attendees Registration): {{ getTotalDown() }} </p>
-                    </div>
+            <div class="item" ng-repeat="row in datarows">
+                <h4>{{row.prodDesc}}</h4>
+                <div ng-switch="balamt" class="pull-right">
+                    <button ng-switch-default class="btn btn-default btn-sm"
+                            ng-click="removeItem(datarows, $index, 'getTotalFull')"><i class="fa fa-times"></i> Remove
+                    </button>
+                    <button ng-switch-when="down" class="btn btn-default btn-sm"
+                            ng-click="removeItem(datarows, $index, 'getTotalDown')"><i class="fa fa-times"></i> Remove
+                    </button>
+                    <p ng-switch-default style="color:red">Balance is {{row.balAmt}}</p>
+                    <p ng-switch-when="down" style="color:red">Balance is {{row.downAmt - row.paidAmt}}</p>
+
                 </div>
-                
-              <!--  <div class="row">                    
-                        <button type="button" class="btn btn-primary" ng-click="go('/home')"> More Attendees </button>                    
-                        <button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button>                    
-                </div> -->
-                <hr>
-                
-                <h3><u>Unique Items</u></h3>
-                <div class="row">
-                	<div ng-repeat="row in crtct.uniqItems">
-                		<div class="col-sm-8">
-                			<p>{{row.rowNum}}</p>
-                			<p>{{row.prodNumb}}</p>
-                			<p>{{row.prodDesc}}</p>
-                			<p>Paid {{row.paidAmt}} of {{row.owedAmt}}</p>
-                		</div>
-                		<div class="col-sm-4">
-                			<button type="button" class="btn btn-default btn-sm" ng-click="removeRowUniq($index)">
-                			Remove
-                            </button>
-                            <p>Balance is {{row.balAmt}}</p>
-                		</div>
-                		<hr class="col-sm-10">
-                	</div>
-                </div>
-                <div class="row">
-                	<div class="col-sm-7"> </div>
-                	<div class="col-sm-5">
-                	<p>Total (Unique Items): {{getTotalUniq()}}</p>
-                	</div>
-                </div>
-                <hr>
-                
-                <h3><u>General Items</u></h3>
-                <div class="row">
-                	<div ng-repeat="row in crtct.genItems">
-                		<div class="col-sm-8">
-                			<p>{{row.rowNum}}</p>
-                			<p>{{row.prodNumb}}</p>
-                			<p>{{row.prodDesc}}</p>
-                			<p>Paid {{row.paidAmt}} of {{row.owedAmt}}</p>
-                		</div>
-                		<div class="col-sm-4">
-                			<button type="button" class="btn btn-default btn-sm" ng-click="removeRowGen($index)">
-                			Remove
-                            </button>
-                            <p>Balance is {{row.balAmt}}</p>
-                		</div>
-                		<hr class="col-sm-10">
-                	</div>
-                </div>
-                <div class="row">
-                	<div class="col-sm-7"> </div>
-                	<div class="col-sm-5">
-                		<p>Total (General Items): {{getTotalGen()}}</p>
-                	</div>   
-                </div>	            
-                <hr>
-                <div class="row">
-                	<div class="col-sm-7"> </div>
-                	<div class="col-sm-5">
-                		<p> Grand Total: {{getTotal()}}</p>
-                	</div>
-                </div>
-                <div class="row">
-                	<div class="col-sm-7"> </div>
-                	<div class="col-sm-5">
-                		<button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button> 
-                	</div>
-                </div>                                
-            </form>
+                <p>{{row.prodNumb}}</p>
+                <p>Paid: {{row.paidAmt}} of {{row.owedAmt}}</p>
+                <p>Minimun payment for reservation: {{row.downAmt}}</p>
+            </div>
+
+            <div ng-switch="balamt" class="text-right">
+                <p ng-switch-default><strong>Total (Attendees Registration): {{getTotalFull}} </strong></p>
+                <p ng-switch-when="down"><strong>Total (Attendees Registration): {{ getTotalDown}} </strong></p>
+            </div>
+
         </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div ng-switch="balamt">
-                	<p> Your Cart Summary:</p>
-                    <p ng-switch-default>Attendees Registration Total:  {{ getTotalFull() }} </p>
-                    <p ng-switch-when="down">Attendees Registration Total:  {{ getTotalDown() }} </p>
+        <div id="uniqueItems" class="itemPanel">
+            <h2>Unique Items</h2>
+            <div class="item" ng-repeat="row in uniqItems">
+                <h4>{{row.prodDesc}}</h4>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-sm pull-right"
+                            ng-click="removeItem(uniqItems, $index, 'getTotalUniq')"><i class="fa fa-times"></i> Remove
+                    </button>
+                    <p style="color:red">Balance is {{row.balAmt}}</p>
                 </div>
-                <p>Unique Items Total: {{getTotalUniq()}}</p>
-                <p>General Items Total: {{getTotalGen()}}</p>
-                <p>Grand Total: {{getTotal()}}</p>
-                <button type="button" class="btn btn-primary" ng-click="go('/payment')"> Check Out </button>
+                <p>{{row.prodNumb}}</p>
+                <p>Paid: {{row.paidAmt}} of {{row.owedAmt}}</p>
+
             </div>
-            <div class="row">
-                <p> <b> Questions? </b> </p>
-                <p> If you have questions about your purchase, or any other issues, please visit </p>
+            <div class="text-right">
+                <p><strong>Total (Unique Items): {{getTotalUniq}} </strong></p>
             </div>
+        </div>
+        <div id="generalItems" class="itemPanel">
+            <h2>General Items</h2>
+            <div class="item" ng-repeat="row in genItems">
+                <h4>{{row.prodDesc}}</h4>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-sm pull-right"
+                            ng-click="removeItem(genItems, $index, 'getTotalGen')"><i class="fa fa-times"></i> Remove
+                    </button>
+                    <p style="color:red">Balance is {{row.balAmt}}</p>
+                </div>
+                <p>{{row.prodNumb}}</p>
+                <p>Paid: {{row.paidAmt}} of {{row.owedAmt}}</p>
+
+            </div>
+            <div class="text-right">
+                <p><strong> Total (General Items): {{getTotalGen}}</strong></p>
+            </div>
+        </div>
+        <div class="itemPanel">
+            <div ng-switch="balamt" class="text-right">
+                <p ng-switch-default><strong>Total (Attendees Registration): {{getTotalFull}} </strong></p>
+                <p ng-switch-when="down"><strong>Total (Attendees Registration): {{ getTotalDown}} </strong></p>
+                <p><strong>Total (Unique Items): {{getTotalUniq}} </strong></p>
+                <p><strong> Total (General Items): {{getTotalGen}}</strong></p>
+                <hr class="line">
+                <p ng-switch-default><strong>Grand Total: {{getTotalFull + getTotalUniq +getTotalGen}}</strong></p>
+                <p ng-switch-when="down"><strong>Grand Total: {{getTotalDown + getTotalUniq +getTotalGen}}</strong></p>
+                <button class="btn btn-info btn-lg">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 sidebar">
+        <div class="itemPanel hidden-xs">
+            <h4>Summary:</h4>
+            <div ng-switch="balamt" class="text-right">
+                <p ng-switch-default><strong>Total (Attendees Registration): {{getTotalFull}} </strong></p>
+                <p ng-switch-when="down"><strong>Total (Attendees Registration): {{ getTotalDown}} </strong></p>
+                <p><strong>Total (Unique Items): {{getTotalUniq}} </strong></p>
+                <p><strong> Total (General Items): {{getTotalGen}}</strong></p>
+                <hr class="line">
+                <p ng-switch-default><strong>Grand Total: {{getTotalFull + getTotalUniq +getTotalGen}}</strong></p>
+                <p ng-switch-when="down"><strong>Grand Total: {{getTotalDown + getTotalUniq +getTotalGen}}</strong></p>
+                <button class="btn btn-info">Checkout</button>
+            </div>
+        </div>
+        <div class="itemPanel">
+            <p><strong>Questions: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                adipisci delectus dignissimos eius
+                esse
+                eum expedita impedit molestias neque nihil nisi nobis odio officia repellendus, tempore totam ut,
+                voluptates. Corporis?</p>
         </div>
     </div>
 </div>

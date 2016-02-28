@@ -1,41 +1,9 @@
-<div class="container" ng-controller="HomeCtrl">
-
+<div class="container">
 
     <div ng-show="info.success">
         <h1>{{info.siteTitle}}</h1>
         <h3>{{info.dates}}</h3>
         <h3>{{info.location}}</h3>
-    </div>
-
-    <!--list of events for a user-->
-    <div class="table-responsive" ng-show="list.length > 0">
-        <h3>Existing Registrations ( {{list.length}} attendees)</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th ng-repeat="(key, val) in list[0]">{{key | uppercase}}</th>
-                    <th>ACTION</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="event in list">
-                    <td ng-repeat="(key, val) in event">{{val}}</td>
-                    <td class="nowarp">
-                        <button class="btn btn-warning">
-                            <i class="fa fa-pencil fa-lg"></i> edit
-                        </button>
-
-                        <button class="btn btn-danger">
-                            <i class="fa fa-times fa-lg"></i> cancel
-                        </button>
-
-                        <button class="btn btn-info">
-                            <i class="fa fa-eye fa-lg"></i> view
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 
     <div ng-show="list.length == 0">
@@ -80,5 +48,36 @@
         </div>
     </div>
 
-    <!--<pre>{{info | json}}</pre>-->
+
+    <input type="checkbox" ng-model="displayEvents"> Check to access a previous registration.
+    <!--list of events for a user-->
+    <div class="table-responsive" ng-show="displayEvents">
+        <h3>Existing Registrations ( {{list.length || 0}} attendees)</h3>
+        <table class="table table-striped" ng-show="list.length > 0">
+            <thead>
+            <tr>
+                <th ng-repeat="(key, val) in list[0]">{{key | uppercase}}</th>
+                <th>ACTION</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="event in list">
+                <td ng-repeat="(key, val) in event">{{val}}</td>
+                <td class="nowarp">
+                    <button class="btn btn-warning">
+                        <i class="fa fa-pencil fa-lg"></i> edit
+                    </button>
+
+                    <button class="btn btn-danger">
+                        <i class="fa fa-times fa-lg"></i> cancel
+                    </button>
+
+                    <button class="btn btn-info">
+                        <i class="fa fa-eye fa-lg"></i> view
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -13,7 +13,8 @@
         $routeProvider
             // Home
             .when("/", {
-                templateUrl: "partials/home.html"
+                templateUrl: "partials/home.html",
+                controller: "HomeCtrl"
             })
             // Registration
             .when("/registration", {
@@ -22,12 +23,17 @@
             })
             // Cart
             .when("/cart", {
-                templateUrl: "partials/cart.html"
+                templateUrl: "partials/cart.html",
+                controller:"CartCtrl"
             })
             // Contact
             .when("/contact", {
                 templateUrl: "partials/contact.html",
                 controller: "ContactCtrl"
+            })
+            .when("/cart2", {
+                templateUrl: "partials/cart2.html",
+                controller: "CartCtrl2"
             })
             // else 404
             .when("/404", {

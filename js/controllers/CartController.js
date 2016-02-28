@@ -1,181 +1,74 @@
 /**
- * Controls the Cart
+ * Created by yangyang on 2/27/16.
  */
-angular.module('tutorialWebApp').controller('CartCtrl', function (  $scope, $location, $http ) {
-    console.log("Cart Controller reporting for duty.");
-	var cart = this;
-	cart.message = {};
-	cart.datarows = [];
+(function () {
+    angular
+        .module('tutorialWebApp')
+        .controller('CartCtrl', CartCtrl);
+    function CartCtrl($scope, $rootScope, $location, $http) {
+        console.log("Cart Controller reporting for duty.");
 
-	
-	$http.get('http://doingthingsbetter.org/api.php?a=cart_info').success(function (data) {
-        cart.message = data;
-    });
-    
-	$http.get('http://doingthingsbetter.org/api.php?a=cart_att').success(function (data) {
-        cart.datarows = data;
-    });
-       
-	$http.get('http://doingthingsbetter.org/api.php?a=cart_uniq').success(function (data) {
-        cart.uniqItems = data;
-    });       
+        $scope.message = null;
+        $scope.datarows = [];
+        $scope.uniqItem = [];
+        $scope.genItems = [];
 
-	$http.get('http://doingthingsbetter.org/api.php?a=cart_gen').success(function (data) {
-        cart.genItems = data;
-    });
-                
-    $scope.removeRowAttn = function (id) {
-  		cart.datarows.splice(id, 1);
-	};
-	
-    $scope.removeRowUniq = function (id) {
-  		cart.uniqItems.splice(id, 1);
-	};
-	
-    $scope.removeRowGen = function (id) {
-  		cart.genItems.splice(id, 1);
-	};
-	  
-	$scope.getTotalFull = function(){
-		var total = 0;
-		for(var i = 0; i < cart.datarows.length; i++){
-		    total = total + cart.datarows[i].balAmt;
-		}
-    	return parseInt(total);
-	};
 
-	$scope.getTotalDown = function(){
-		var total = 0;
-		for(var i = 0; i < cart.datarows.length; i++){
-		    total = total + cart.datarows[i].downAmt - cart.datarows[i].paidAmt;
-		}
-    	return parseInt(total);
-	}
+        $scope.getTotalFull = null;
+        $scope.getTotalDown = null;
+        $scope.getTotalUniq = null;
+        $scope.getTotalGen = null;
 
-	$scope.getTotalUniq = function(){
-		var totalUniq = 0;
-		for(var i = 0; i < cart.uniqItems.length; i++){
-		    totalUniq = totalUniq + cart.uniqItems[i].balAmt;
-		}
-    	return parseInt(totalUniq);
-	};
-	
-	$scope.getTotalGen = function(){
-		var totalGen = 0;
-		for(var i = 0; i < cart.genItems.length; i++){
-		    totalGen = totalGen + cart.genItems[i].balAmt;
-		}
-    	return parseInt(totalGen);
-	};
-	
-/*	$scope.getTotal = function(){
-		var total = 0;
-		total = $scope.getTotalUniq() + $scope.getTotalGen();
-		//var fullordown = document.querySelectorAll('input[type="radio"][name="furodo"]:checked');
-		if ($scope.balamt == "full" || $scope.balamt == "true")//if (fullordown[0].value == 'full')
-		{
-			total = total + $scope.getTotalFull();
-		}
-		else
-		{
-			total = total + $scope.getTotalDown();
-		}
-		return parseInt(total);
-	}; */
-	
-	$scope.getTotal = function(){
-		var total = 0;
-		total = $scope.getTotalUniq() + $scope.getTotalGen();
-		//var fullordown = document.querySelectorAll('input[type="radio"][name="furodo"]:checked');
-		if ($scope.balamt == "down")//if (fullordown[0].value == 'full')
-		{
-			total = total + $scope.getTotalDown();
-		}
-		else
-		{
-			total = total + $scope.getTotalFull();
-		}
-		return parseInt(total);
-	};
+        $scope.removeItem = removeItem;
+        $scope.$location = $location;
 
-	$scope.getTotalNumAtnd = function(){
-		return cart.datarows.length;
-	}
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=cart_info')
+            .success(function (data) {
+                $scope.message = data;
+            });
 
-    $scope.go = function (path) {
-        $('myModal').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        $location.path(path);
-    }
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=cart_att')
+            .success(function (data) {
+                $scope.datarows = data;
+                $scope.getTotalFull = getTotal($scope.datarows, "balAmt");
+                $scope.getTotalDown = getTotal($scope.datarows, "downAmt") - getTotal($scope.datarows, "paidAmt");
+            });
 
-});
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=cart_uniq')
+            .success(function (data) {
+                $scope.uniqItems = data;
+                $scope.getTotalUniq = getTotal($scope.uniqItems, "balAmt");
+            });
 
-    
-/*    $scope.submit = function() {
-    	$http({
-                method: 'POST',
-                url: 'https://crucore.com/api.php?a=cart_post',
-//                headers: {
-//                    'Content-Type': 'application/x-www-form-urlencoded'
-//                },
-//                data: $.param(cart.datarows)
-                data: cart.datarows
-            }).success(function (data) {
-	            console.log(data);
-            	$window.location.href = '/payment.html';
-            });                    
-    }; */
-    
-    
-    
- /*   cart.message = {
-        'downPay': 50,
-        'ordNumb': 2,
-        'custName' : 'Abc Def',
-        'custBill': '407 s grant st',
-        'createDay': '2/8/2016',
-	};
-		
-	cart.datarows = [
-        {
-            'rowNum': 1,
-            'prodNumb': 'CR-234-std',
-            'prodDesc': 'Standard Registration',
-            'owedAmt': 100,
-            'paidAmt': 0,
-			'balAmt' : 100
-        },
-        {
-            'rowNum': 2,
-            'prodNumb': 'CR-233-stu',
-            'prodDesc': 'Student Registration',
-            'owedAmt': 50,
-            'paidAmt': 0,
-			'balAmt' : 50
+        $http
+            .get('http://doingthingsbetter.org/api.php?a=cart_gen')
+            .success(function (data) {
+                $scope.genItems = data;
+                $scope.getTotalGen = getTotal($scope.genItems, "balAmt");
+            });
+
+
+        function getTotal(data, field) {
+            var total = 0;
+            for (var i = 0; i < data.length; i++) {
+                total = total + data[i][field];
+            }
+            return parseInt(total);
+        };
+
+        function removeItem(data, index, field) {
+            data.splice(index, 1);
+            if (field !== 'getTotalDown' && field !== 'getTotalFull'){
+                $scope[field] = getTotal(data, "balAmt");
+            } else {
+                $scope['getTotalFull'] = getTotal(data, "balAmt");
+                $scope['getTotalDown'] = getTotal(data, "downAmt") - getTotal(data, "paidAmt");
+            }
+
         }
-    ]; */
-    
-/*    $scope.IsVisible = false;
-    $scope.ShowHide = function () {
-    	$scope.IsVisible = $scope.IsVisible ? false : true;
-    };
-    $scope.IsVisibleCC = false;
-    $scope.ShowHideCC = function () {
-    	$scope.IsVisibleCC = $scope.IsVisibleCC ? false : true;
-    };
-    $scope.IsVisibleEFT = false;   
-    $scope.ShowHideEFT = function () {
-    	$scope.IsVisibleEFT = $scope.IsVisibleEFT ? false : true;
-    };
-    $scope.IsVisibleSA = false;    
-    $scope.ShowHideSA = function () {
-    	$scope.IsVisibleSA = $scope.IsVisibleSA ? false : true;
-    };
-    $scope.IsVisibleCF = false;    
-    $scope.ShowHideCF = function () {
-    	$scope.IsVisibleCF = $scope.IsVisibleCF ? false : true;
-    };
-    $scope.ShowHideTA = function () {
-    	$scope.IsVisibleTA = $scope.IsVisibleTA ? false : true;
-    };  */
+
+    }
+})();
