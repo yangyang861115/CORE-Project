@@ -1,0 +1,11 @@
+<div ng-controller="SearchBoxController">
+    <h1>Welcome to EventCORE</h1>
+    <h2>To Register to Attend an Event</h2>
+    <p class="lead">To find an event, please enter the name of the event, dates or location to begin your search. A list of possible options will appear in the space below</p>
+    <input type="text" class="form-control" placeholder="Enter Event Name, Event siteKey" ng-model="searchText" ng-change="apiSearch()">
+    <p><small>Type at least three letters of the site title or if you know the site number enter that number.
+        The month and location search is not yet working (bld. 6265)</small></p>
+    <div id="searchResult">
+        <p>{{searchTextResult}}</p>
+    </div>
+</div>
